@@ -96,6 +96,21 @@ def health():
     ), 200 if tts.is_loaded else 503
 
 
+@api.route('/v1/models', methods=['GET'])
+def list_models():
+    """List accepted OpenAI-compatible TTS model aliases."""
+    aliases = ('tts-1', 'tts-1-hd', 'gpt-4o-mini-tts')
+    return jsonify(
+        {
+            'object': 'list',
+            'data': [
+                {'id': model, 'object': 'model', 'created': 0, 'owned_by': 'pocket-tts'}
+                for model in aliases
+            ],
+        }
+    )
+
+
 @api.route('/v1/voices', methods=['GET'])
 def list_voices():
     """

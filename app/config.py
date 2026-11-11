@@ -38,7 +38,8 @@ class Config:
 
     # Supported languages (pocket-tts v2.0.0 predefined model YAMLs)
     SUPPORTED_LANGUAGES = [
-        'english',  # alias for english_2026-04 (default)
+        'english',  # alias for english_2026-10 in Pocket TTS 4.0.1
+        'english_2026-10',
         'english_2026-01',
         'english_2026-04',
         'french_24l',  # no bare `french` — upstream raises
@@ -54,7 +55,7 @@ class Config:
 
     # Canonicalize equivalent model IDs so tagged caches dedupe.
     LEGACY_MODEL_ALIASES = {
-        'english': 'english_2026-04',
+        'english': 'english_2026-10',
         'english_2026-01': 'english_2026-04',
     }
 

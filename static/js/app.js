@@ -23,6 +23,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 	let generateStartTime = 0;
 	let currentStatsId = null;
 
+	function createStatsId() {
+		// randomUUID() is unavailable on plain-HTTP LAN origins. This ID only
+		// correlates transient timing stats; it is not an authentication token.
+		if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+			return window.crypto.randomUUID();
+		}
+		return `stats-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+	}
+
 	// Format & Streaming Logic
 	function updateStreamingAvailability() {
 		const fmt = formatSelect.value;
@@ -469,7 +478,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 		try {
 			if (stream && fmt !== 'pcm') {
-				currentStatsId = crypto.randomUUID();
+				currentStatsId = createStatsId();
 				const params = new URLSearchParams({
 					input: text,
 					voice: voice,
